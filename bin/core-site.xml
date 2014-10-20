@@ -1,7 +1,0 @@
-<configuration>
-	<property>
-		<name>fs.default.name</name>
-		<value>hdfs://hadoop-node-one:9000</value>
-		<description>NameNode URI</description>
-	</property>
-</configuration>

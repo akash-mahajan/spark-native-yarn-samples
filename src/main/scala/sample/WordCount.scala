@@ -42,7 +42,7 @@ object WordCount extends Base {
     System.setProperty(TezConstants.GENERATE_JAR, "true")
     System.setProperty(TezConstants.UPDATE_CLASSPATH, "true")
     println("######## STARING WordCount")
-    var inputFile = "/partitioning.txt"
+    var inputFile = "/wordcount.txt"
     var reducers = 2
     if (args != null && args.length > 1) {
       inputFile = args(0)

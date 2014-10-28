@@ -24,29 +24,48 @@ import org.apache.hadoop.io.IntWritable
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat
 import org.apache.spark.tez.TezConstants
 import org.apache.spark.SparkConf
+import org.apache.hadoop.mapred.lib.MultipleTextOutputFormat
+import org.apache.hadoop.io.NullWritable
+import org.apache.spark.HashPartitioner
 
 /**
- * 
+ *
  */
-object SourceCount extends Base {
+object Join extends Base {
 
   /**
-   * 
+   *
    */
   def main(args: Array[String]) {
-    println("######## STARING SOURCE COUNT")
-
-    var inputFile = "wordcount.txt"
-    if (args != null && args.length > 0) {
-      inputFile = args(0)
-    } 
+    println("######## STARING JOIN")
+    var inputFile1 = "join1.txt"
+    var inputFile2 = "join2.txt"
+    if (args != null && args.length > 1) {
+      inputFile1 = args(0)
+      inputFile2 = args(1)
+    }
     val sparkConf = this.buildSparkConf(this.getClass.getSimpleName())
     val sc = new SparkContext(sparkConf)
+
+    val source1 = sc.textFile(inputFile1)
+    val source2 = sc.textFile(inputFile2)
+
+    val result2 = source2.map { x =>
+      val s = x.split(" ")
+      (Integer.parseInt(s(0)), s(1))
+    }
     
-    val source = sc.textFile(inputFile)
-    val result = source.count
-    println("Result: " + result)
-    println("######## FINISHED SOURCE COUNT")
+    val result = source1.map { x =>
+      val s = x.split(" ")
+      val t = (Integer.parseInt(s(2)), (s(0), s(1)))
+      t
+    }.join(result2).reduceByKey { (x, y) =>
+      ((x._1.toString, y._1.toString), x._2)
+    }.collect
+    
+    println("RESULT: " + result)
+    
+    println("######## FINISHED JOIN")
     sc.stop
   }
 }

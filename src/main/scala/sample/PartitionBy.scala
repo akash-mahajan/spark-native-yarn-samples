@@ -24,10 +24,11 @@ import org.apache.hadoop.io.IntWritable
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat
 import org.apache.spark.tez.TezConstants
 import org.apache.spark.SparkConf
-import org.apache.spark.SparkConf
 import org.apache.hadoop.mapred.lib.MultipleTextOutputFormat
 import org.apache.hadoop.io.NullWritable
 import org.apache.spark.HashPartitioner
+import org.apache.hadoop.fs.FileSystem
+import org.apache.hadoop.fs.Path
 
 /**
  *
@@ -39,7 +40,7 @@ object PartitionBy extends Base {
    */
   def main(args: Array[String]) {
     println("######## STARING PARTITION BY")
-    var inputFile = "/partitioning.txt"
+    var inputFile = "partitioning.txt"
     if (args != null && args.length > 0) {
       inputFile = args(0)
     }
@@ -50,8 +51,9 @@ object PartitionBy extends Base {
     val result = source
       .map { s => val split = s.split("\\s+", 2); (split(0).replace(":", "_"), split(1)) }
       .partitionBy(new HashPartitioner(2))
-      .saveAsHadoopFile(sc.appName + "_out", classOf[Text], classOf[Text], classOf[KeyPerPartitionOutputFormat])
-    println("######## FINISHED PARTITION BY")
+      .saveAsHadoopFile("out", classOf[Text], classOf[Text], classOf[KeyPerPartitionOutputFormat])
+    println("######## FINISHED PARTITION BY. Output is in " + 
+        FileSystem.get(sc.hadoopConfiguration).makeQualified(new Path("out")))
     sc.stop
   }
 }

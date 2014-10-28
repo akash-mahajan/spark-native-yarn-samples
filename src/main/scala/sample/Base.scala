@@ -32,6 +32,7 @@ class Base {
     }
     sparkConf.setAppName(appName)
     if (!sparkConf.contains("spark.master")) {
+      //execution-context:org.apache.spark.tez.TezJobExecutionContext
       sparkConf.setMaster("execution-context:" + classOf[TezJobExecutionContext].getName)
     }
     sparkConf.set("spark.ui.enabled", "false")

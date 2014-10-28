@@ -24,29 +24,43 @@ import org.apache.hadoop.io.IntWritable
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat
 import org.apache.spark.tez.TezConstants
 import org.apache.spark.SparkConf
+import org.apache.hadoop.mapred.lib.MultipleTextOutputFormat
+import org.apache.hadoop.io.NullWritable
+import org.apache.spark.HashPartitioner
+import org.apache.hadoop.fs.FileSystem
+import org.apache.hadoop.fs.Path
 
 /**
- * 
+ *
  */
-object SourceCount extends Base {
+object WordCount extends Base {
 
   /**
-   * 
+   *
    */
   def main(args: Array[String]) {
-    println("######## STARING SOURCE COUNT")
-
-    var inputFile = "wordcount.txt"
-    if (args != null && args.length > 0) {
+    System.setProperty(TezConstants.GENERATE_JAR, "true")
+    System.setProperty(TezConstants.UPDATE_CLASSPATH, "true")
+    println("######## STARING WordCount")
+    var inputFile = "/partitioning.txt"
+    var reducers = 2
+    if (args != null && args.length > 1) {
       inputFile = args(0)
-    } 
+      reducers = Integer.parseInt(args(1))
+    }
     val sparkConf = this.buildSparkConf(this.getClass.getSimpleName())
     val sc = new SparkContext(sparkConf)
-    
+
     val source = sc.textFile(inputFile)
-    val result = source.count
-    println("Result: " + result)
-    println("######## FINISHED SOURCE COUNT")
+    val result = source
+      .flatMap(_.split("\\s+"))
+      .map((_, 1))
+      .reduceByKey(_+_, reducers)
+      .saveAsNewAPIHadoopFile("out", classOf[Text],
+        classOf[IntWritable], classOf[TextOutputFormat[_, _]])
+        
+    println("######## FINISHED WordCount. Output is in " + 
+        FileSystem.get(sc.hadoopConfiguration).makeQualified(new Path("out")))
     sc.stop
   }
 }

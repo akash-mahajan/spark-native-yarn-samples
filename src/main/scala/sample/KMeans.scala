@@ -33,8 +33,6 @@ object KMeans extends Base {
    */
   def main(args: Array[String]) {
     println("######## STARING KMEANS")
-//    System.setProperty(TezConstants.GENERATE_JAR, "true")
-//    System.setProperty(TezConstants.UPDATE_CLASSPATH, "true")
     var inputFile = "/kmeans_data.txt"
     if (args != null && args.length > 0) {
       inputFile = args(0)

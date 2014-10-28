@@ -10,4 +10,4 @@ Please follow the links above for more details.
 
 This project can also serve as a _template_ to create projects that work with _**Spark**_ and _**spark-native-yarn**_ integration. 
 
-To get started please follow [Getting Started](https://github.com/hortonworks/spark-native-yarn-samples/wiki/Getting-Started) guide.
+To get started please follow [Getting Started](https://github.com/hortonworks/spark-native-yarn-samples/wiki/Home) guide.

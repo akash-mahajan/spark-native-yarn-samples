@@ -4,7 +4,7 @@
 
 ==
 
-This project contains a set of working samples to demonstrate benefits of using [Spark Native YARN](https://github.com/hortonworks/spark-native-yarn) effort; And effort 
+This project contains a set of working samples to demonstrate benefits of using [Spark Native YARN](https://github.com/hortonworks/spark-native-yarn) effort - an effort 
 to allow [Apache SPARK](https://spark.apache.org/) to run natively in YARN/Tez execution context.
 Please follow the links above for more details.
 

@@ -25,10 +25,6 @@ repositories {
 dependencies {
     compile "org.scala-lang:scala-compiler:$scalaVersion"
 	compile "org.scala-lang:scala-library:$scalaVersion"
-	//compile ("org.apache.spark:spark-core_2.10:$sparkVersion") {
-	//	exclude group: 'org.apache.hadoop'
-	//}
-	//exclude group: 'org.apache.hadoop'
     compile ("org.apache.spark.tez:spark-native-yarn:$sparkNativeYarnVersion") {
         exclude group: 'org.apache.hadoop', module: 'hadoop-client'
         exclude group: 'org.apache.hadoop', module: 'hadoop-core'

@@ -9,7 +9,7 @@ sourceCompatibility=1.6
 targetCompatibility=1.6
 
 scalaVersion = '2.10.4'
-sparkVersion = '1.1.0.2.1.5.0-701'
+//sparkVersion = '1.1.0.2.1.5.0-702'
 sparkNativeYarnVersion = '0.1-PREVIEW-1.1.1'
 
 sourceSets.main.scala.srcDir "src/main/java"
@@ -18,8 +18,7 @@ sourceSets.main.java.srcDirs = []
 repositories {
     mavenLocal()
     mavenCentral()
-	maven { url 'http://repository.apache.org/snapshots/' }
-	maven { url 'http://repo.hortonworks.com/content/repositories/releases/' }
+    maven { url 'http://repo.hortonworks.com/content/repositories/releases/' }
 }
 
 dependencies {

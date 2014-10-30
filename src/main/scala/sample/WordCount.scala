@@ -39,8 +39,6 @@ object WordCount extends Base {
    *
    */
   def main(args: Array[String]) {
-    System.setProperty(TezConstants.GENERATE_JAR, "true")
-    System.setProperty(TezConstants.UPDATE_CLASSPATH, "true")
     println("######## STARING WordCount")
     var inputFile = "/wordcount.txt"
     var reducers = 2

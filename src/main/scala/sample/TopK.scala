@@ -39,6 +39,7 @@ object TopK extends Base {
       .top(top)
 
     result.foreach{case (number, value) => println (value + " : " + number)}
+    sc.stop
 
   }
 

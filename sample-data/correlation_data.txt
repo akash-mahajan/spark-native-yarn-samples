@@ -1,0 +1,15 @@
+id,name,dose,surv
+1,Coby Rice,1410,0.006
+2,Allistair Carney,1410,0.7
+3,Oscar Mason,705,0.5
+4,Carlos Sanders,705,0.32
+5,Zachery Patrick,470,4
+6,Philip Espinoza,940,0.015
+7,Gray Leon,470,6.12
+8,Rajah Holden,940,0.11
+9,Kamal Young,470,1.96
+10,August Perry,235,13
+11,Guy Osborne,117.5,44
+12,Keefe Prince,117.5,55
+13,Adrian Melton,235,16
+14,Julian Oneil,940,0.019
